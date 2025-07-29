@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Unofficial Transcript</title>
+        <style type="text/css">
+            body { 
+                border: 1px solid black;     
+                text-align: center;
+                padding: 10px 25px 10px 25px;
+                margin: 25px;
+                
+            }
+            
+            h3{
+                text-decoration: underline;
+            }
+            .courseid {
+
+                width:20%;
+            display: inline-block;
+            }
+
+            .coursetitle{
+                width:70%
+            }
+
+            .photocol {
+                width: 20%;
+                text-align: center;
+            }
+
+            .gpa-label {
+                font-style:italic;
+                font-weight: bold;
+            }
+            .gpa  , #totalcredit{
+                width:10%;
+            }
+
+            .coursecredit , .coursegrade{
+                width:60%
+            }
+
+            .photo {
+                width: 120px;
+                height: 120px;
+                border: 1px solid black;
+                align-items: center;
+                justify-content: center;
+                display: flex;
+            }
+
+            
+
+            table {
+                width: 100%;
+            }
+
+        
+            input {
+                border: 2px solid black;
+            }
+
+            .info div{
+                text-align: left;
+                padding: 2px;
+                margin-bottom: 5px;
+            }
+
+            .tanscript {
+                border-collapse: collapse;
+            }
+
+            .tanscript thead,.tanscript tfoot {
+                border: 1px solid black;
+            }
+
+            .tanscript thead th,.tanscript tfoot td {
+                border: 1px solid black;
+            }
+
+            .tanscript tbody td {
+                border-left: 1px solid black;
+                border-right: 1px solid black;
+            }
+
+            .submit-container {
+                text-align: right;     
+                margin-top: 5px;
+            }
+
+            #submit{
+                border-radius: 4px;
+                background: white;
+                width: 60px;
+                height: 30px;}
+
+        </style>
+
+    </head>
+    
+
+    <body>
+        <table>
+            <tr>
+                <td colspan="2">
+                    <h2>(Unofficial Transcript)</h2>
+                    <p>School of Engineering</p>
+                </td>
+
+                <td rowspan="2" class="photocol">
+                    <div class="photo">
+                        <p>Photo</p>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td  class="info"> 
+                   <div>
+                    <label name="name">Name </label>
+                   <input type="text"  placeholder="Mr./Miss Nxxxx Xxxxxxx" id="name"><br>
+                   </div>
+
+                   <div>
+                    <label name="birthdate">Date of Birth </label>
+                   <input type="text" placeholder="MMMM DD , 20xx" id="birthdate"><br>
+                   </div>
+
+                   <div>
+                    <label name="admission">Date of Admission </label>
+                   <input type="text" placeholder="20xx" id="admission"><br>
+                   </div>
+                   
+                   <div>
+                    <label name="degree">Degree </label>
+                   <input type="text" placeholder="Bachelor of Engineering" id="degree" ><br>
+                   </div>
+
+                   <div>
+                    <label name="major">Major </label>
+                   <input type="text" placeholder="Software Engineering" id="major"><br>
+                   </div>          
+
+                </td>
+
+                <td  class="info"> 
+                   <div>
+                    <label name="studentid">Student ID </label>
+                   <input type="text"  placeholder="65xxxxxx" id="studentid"><br>
+                   </div>
+
+                   <div>
+                    <label name="graduation" >Date of Graduation </label>
+                   <input type="text" placeholder="N/A" id="graduation"><br>
+                   </div>       
+
+                </td>
+            </tr>
+        </table>
+
+
+        <table class="tanscript">
+            <thead>
+                <tr>
+                    <th width="40%">COURSE TITLE</th>
+                    <th width="5%">CREDIT</th>
+                    <th>GRADE</th>
+                    <th width="40%">COURSE TITLE</th>
+                    <th width="5%">CREDIT</th>
+                    <th>GRADE</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>
+                        <h3>Transfer Credit</h3>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                     <td>
+                        <input type="text" class="courseid">
+                        <input type="text" class="coursetitle">
+                    </td>
+
+                    <td>
+                        <input type="text" class="coursecredit">
+                    </td>
+                    <td>
+                        <input type="text" class="coursegrade">
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                     <td>
+                        <input type="text" class="courseid">
+                        <input type="text" class="coursetitle">
+                    </td>
+
+                    <td>
+                        <input type="text" class="coursecredit">
+                    </td>
+                    <td>
+                        <input type="text" class="coursegrade">
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td> <label class="gpa-label">GPA :</label><input type="text" placeholder="X.XX" class="gpa"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+
+
+
+                <tr>
+                    <td>
+                        <h3>1st Semester , Year , 2021-2022</h3>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                     <td>
+                        <input type="text" class="courseid">
+                        <input type="text" class="coursetitle">
+                    </td>
+
+                    <td>
+                        <input type="text" class="coursecredit">
+                    </td>
+                    <td>
+                        <input type="text" class="coursegrade">
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                     <td>
+                        <input type="text" class="courseid">
+                        <input type="text" class="coursetitle">
+                    </td>
+
+                    <td>
+                        <input type="text" class="coursecredit">
+                    </td>
+                    <td>
+                        <input type="text" class="coursegrade">
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                     <td>
+                        <input type="text" class="courseid">
+                        <input type="text" class="coursetitle">
+                    </td>
+
+                    <td>
+                        <input type="text" class="coursecredit">
+                    </td>
+                    <td>
+                        <input type="text" class="coursegrade">
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                     <td>
+                        <input type="text" class="courseid">
+                        <input type="text" class="coursetitle">
+                    </td>
+
+                    <td>
+                        <input type="text" class="coursecredit">
+                    </td>
+                    <td>
+                        <input type="text" class="coursegrade">
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                     <td>
+                        <input type="text" class="courseid">
+                        <input type="text" class="coursetitle">
+                    </td>
+
+                    <td>
+                        <input type="text" class="coursecredit">
+                    </td>
+                    <td>
+                        <input type="text" class="coursegrade">
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                     <td>
+                        <input type="text" class="courseid">
+                        <input type="text" class="coursetitle">
+                    </td>
+
+                    <td>
+                        <input type="text" class="coursecredit">
+                    </td>
+                    <td>
+                        <input type="text" class="coursegrade">
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td> 
+                        <labeL class="gpa-label">GPS:</labeL><input type="text" placeholder="X.XX" class="gpa">
+                        <labeL class="gpa-label">GPA :</labeL><input type="text" placeholder="X.XX" class="gpa"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+
+                <tr>
+                    <td>
+                        <h3>2nd Semester , Year , 2021-2022</h3>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                     <td>
+                        <input type="text" class="courseid">
+                        <input type="text" class="coursetitle">
+                    </td>
+
+                    <td>
+                        <input type="text" class="coursecredit">
+                    </td>
+                    <td>
+                        <input type="text" class="coursegrade">
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                     <td>
+                        <input type="text" class="courseid">
+                        <input type="text" class="coursetitle">
+                    </td>
+
+                    <td>
+                        <input type="text" class="coursecredit">
+                    </td>
+                    <td>
+                        <input type="text" class="coursegrade">
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                     <td>
+                        <input type="text" class="courseid">
+                        <input type="text" class="coursetitle">
+                    </td>
+
+                    <td>
+                        <input type="text" class="coursecredit">
+                    </td>
+                    <td>
+                        <input type="text" class="coursegrade">
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                     <td>
+                        <input type="text" class="courseid">
+                        <input type="text" class="coursetitle">
+                    </td>
+
+                    <td>
+                        <input type="text" class="coursecredit">
+                    </td>
+                    <td>
+                        <input type="text" class="coursegrade">
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                     <td>
+                        <input type="text" class="courseid">
+                        <input type="text" class="coursetitle">
+                    </td>
+
+                    <td>
+                        <input type="text" class="coursecredit">
+                    </td>
+                    <td>
+                        <input type="text" class="coursegrade">
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                     <td>
+                        <input type="text" class="courseid">
+                        <input type="text" class="coursetitle">
+                    </td>
+
+                    <td>
+                        <input type="text" class="coursecredit">
+                    </td>
+                    <td>
+                        <input type="text" class="coursegrade">
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                     <td>
+                        <input type="text" class="courseid">
+                        <input type="text" class="coursetitle">
+                    </td>
+
+                    <td>
+                        <input type="text" class="coursecredit">
+                    </td>
+                    <td>
+                        <input type="text" class="coursegrade">
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td> 
+                        <labeL class="gpa-label">GPS:</labeL><input type="text" placeholder="X.XX" class="gpa">
+                        <labeL class="gpa-label">GPA :</labeL><input type="text" placeholder="X.XX" class="gpa"></td>
+                        <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+
+                <tr>
+                    <td>
+                        <h3>1st Semester , Year , 2022-2023</h3>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                     <td>
+                        <input type="text" class="courseid">
+                        <input type="text" class="coursetitle">
+                    </td>
+
+                    <td>
+                        <input type="text" class="coursecredit">
+                    </td>
+                    <td>
+                        <input type="text" class="coursegrade">
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                     <td>
+                        <input type="text" class="courseid">
+                        <input type="text" class="coursetitle">
+                    </td>
+
+                    <td>
+                        <input type="text" class="coursecredit">
+                    </td>
+                    <td>
+                        <input type="text" class="coursegrade">
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                     <td>
+                        <input type="text" class="courseid">
+                        <input type="text" class="coursetitle">
+                    </td>
+
+                    <td>
+                        <input type="text" class="coursecredit">
+                    </td>
+                    <td>
+                        <input type="text" class="coursegrade">
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                     <td>
+                        <input type="text" class="courseid">
+                        <input type="text" class="coursetitle">
+                    </td>
+
+                    <td>
+                        <input type="text" class="coursecredit">
+                    </td>
+                    <td>
+                        <input type="text" class="coursegrade">
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                     <td>
+                        <input type="text" class="courseid">
+                        <input type="text" class="coursetitle">
+                    </td>
+
+                    <td>
+                        <input type="text" class="coursecredit">
+                    </td>
+                    <td>
+                        <input type="text" class="coursegrade">
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                     <td>
+                        <input type="text" class="courseid">
+                        <input type="text" class="coursetitle">
+                    </td>
+
+                    <td>
+                        <input type="text" class="coursecredit">
+                    </td>
+                    <td>
+                        <input type="text" class="coursegrade">
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                     <td>
+                        <input type="text" class="courseid">
+                        <input type="text" class="coursetitle">
+                    </td>
+
+                    <td>
+                        <input type="text" class="coursecredit">
+                    </td>
+                    <td>
+                        <input type="text" class="coursegrade">
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                     <td>
+                        <input type="text" class="courseid">
+                        <input type="text" class="coursetitle">
+                    </td>
+
+                    <td>
+                        <input type="text" class="coursecredit">
+                    </td>
+                    <td>
+                        <input type="text" class="coursegrade">
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td> 
+                        <labeL class="gpa-label">GPS:</labeL><input type="text" placeholder="X.XX" class="gpa">
+                        <labeL class="gpa-label">GPA :</labeL><input type="text" placeholder="X.XX" class="gpa"></td>
+                        <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+
+            <tfoot>
+                <tr>
+                    <td>
+                        <label name="totalcredit">Total number of credits earned:</label>
+                        <input type="text" placeholder="XX" id="totalcredit">
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <div class="submit-container">
+            <input type="submit" value="Submit" id="submit">
+        </div>
+
+    </body>
+</html>
