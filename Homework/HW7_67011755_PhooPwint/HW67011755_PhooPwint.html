@@ -4,7 +4,9 @@
         <title> CV Page</title>
         <style>
             * {
-                color:rgb(11, 11, 104);             
+                color:rgb(11, 11, 104);   
+                font-family: 'Times New Roman', Times, serif;          
+                font-size: large;
             }
 
             body {
@@ -17,6 +19,13 @@
                 border-radius: 50%;
                 width:200px;
             }
+
+            hr{
+            color:rgb(46, 46, 145);   
+        
+            }
+
+        
 
       
             .logo{
@@ -37,13 +46,13 @@
 
             .position, .edu-year{
                 margin-top: 20px;
-                width: 20%;
                 display: flex;
-                align-items: flex-start; 
+                align-items: flex-start;
+                text-align: left; 
             }
 
             .exp-details ,.degree{
-                width: 65%;
+                width: 70%;
                 text-align: left;
                 
             }
@@ -71,6 +80,10 @@
                 align-self: stretch;  
             }
 
+            #secondcol h4{
+                margin: 0.2em 0;
+            }
+
             
         </style>
     </head>
@@ -95,11 +108,11 @@
 
             <h3 id="skills">SKILLS <hr></h3>
             <div class="list">
-                <div>  -Python</div>
-                <div>  -C++</div>
-                <div>  -Rust</div>
-                <div>  -Java</div>
-                <div>  -C</div>
+                <div>  -<strong> Programming Languages: </strong>Python, C++, Rust, Java</div>
+                <div>  -<strong> Web Development: </strong>HTML, CSS, JavaScript</div>
+                <div>  -<strong>Assembly Language:</strong> ARM, Raspberry Pi (32-bit), x86</div>
+                <div>  -<strong>Algorithm & Data Structures:</strong> Problem-solving, recursion, stack/queue operations</div>
+                <div>  -<strong>GUI Development: </strong>Python Tkinter, Ice GUI in Rust </div>
             </div>        
             <br>
 
@@ -144,7 +157,7 @@
 
                 <tr class="exp-item">
                     <td class="position">
-                        Python Teacher Assistant
+                    Teacher Assistant (Python)
                     </td>
 
                     <td class="exp-details"> 
@@ -169,7 +182,7 @@
 
                     <td class="degree"> 
                         <h4> Bachelor Degree</h4>
-                        <p>King Mongkut Institute of Technology Latkrabang</p>
+                        <p><i>King Mongkut Institute of Technology Latkrabang</i></p>
                         <p>Currently pursuing a Bachelor’s degree in Software Engineering, with a strong emphasis on programming, algorithms, and software development methodologies. Consistently achieving high academic performance while actively participating in projects that enhance practical coding skills and teamwork.</p>
                     </td>
                 </tr>
@@ -182,7 +195,7 @@
 
                     <td class="degree"> 
                         <h4>High School</h4>
-                        <p>Parami Private High School</p>
+                        <p><i>Parami Private High School</i></p>
                         <p>Completed secondary education with a focus on  mathematics. Participated in extracurricular activities and achieved strong academic results that prepared me for university-level studies.</p>
 
                     </td>
