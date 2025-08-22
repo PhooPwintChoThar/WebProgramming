@@ -1,0 +1,155 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Bill</title>
+  <style>
+    table, th, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+      padding: 5px;
+    }
+  </style>
+</head>
+<body>
+  <table border="1" align="center" id="originalTable">
+    <thead>
+      <tr>
+        <th>Number</th>
+        <th>Item</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>Item 1</td>
+        <td>1</td>
+        <td>100</td>
+        <td>100</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Item 2</td>
+        <td>2</td>
+        <td>200</td>
+        <td>400</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Item 3</td>
+        <td>3</td>
+        <td>300</td>
+        <td>900</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>Item 4</td>
+        <td>4</td>
+        <td>400</td>
+        <td>1600</td>
+      </tr>
+      <tr>
+        <td colspan="4">Total</td>
+        <td>3000</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div style="text-align: center; margin-top: 2%">
+    <textarea rows="15" cols="60" id="displayTextarea" placeholder="Your JSON Here"></textarea>
+  </div>
+
+  <div class="button" style="text-align: center; margin-top: 1%; margin-bottom: 1%">
+    <button onclick="convert()">Convert</button>
+  </div>
+
+  <table border="1" align="center" id="newTable"></table>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      let table = document.getElementById('originalTable');
+      let headers = [];
+      let body = [];
+      let footer = [];
+
+      table.querySelectorAll('thead th').forEach(th => headers.push(th.textContent));
+
+      let rows = table.querySelectorAll('tbody tr');
+      rows.forEach((row, i) => {
+        let cells = row.querySelectorAll('td');
+        if (i < rows.length - 1) {
+          let obj = {};
+          cells.forEach((cell, j) => {
+            obj[headers[j]] = cell.textContent;
+          });
+          body.push(obj);
+        } else {
+          let footRow = [];
+          cells.forEach(cell => {
+            let obj = { value: cell.textContent };
+            if (cell.hasAttribute("colspan")) {
+              obj.colspan = cell.getAttribute("colspan");
+            }
+            footRow.push(obj);
+          });
+          footer.push(footRow);
+        }
+      });
+
+      let jsonData = {
+        Header: headers,
+        Body: body,
+        Footer: footer
+      };
+
+      document.getElementById('displayTextarea').value = JSON.stringify(jsonData, null, 2);
+    });
+
+    function convert() {
+      let obj = JSON.parse(document.getElementById('displayTextarea').value);
+      console.log(obj);
+
+      let newTable = document.getElementById('newTable');
+      newTable.innerHTML = "";
+
+      let thead = document.createElement('thead');
+      let headerRow = document.createElement('tr');
+      obj.Header.forEach(h => {
+        let th = document.createElement('th');
+        th.textContent = h;
+        headerRow.appendChild(th);
+      });
+      thead.appendChild(headerRow);
+      newTable.appendChild(thead);
+
+      let tbody = document.createElement('tbody');
+      obj.Body.forEach(rowObj => {
+        let row = document.createElement('tr');
+        obj.Header.forEach(h => {
+          let td = document.createElement('td');
+          td.textContent = rowObj[h];
+          row.appendChild(td);
+        });
+        tbody.appendChild(row);
+      });
+
+      if (obj.Footer && obj.Footer.length > 0) {
+        obj.Footer.forEach(footRow => {
+          let row = document.createElement('tr');
+          footRow.forEach(f => {
+            let td = document.createElement('td');
+            td.textContent = f.value;
+            if (f.colspan) td.colSpan = f.colspan;
+            row.appendChild(td);
+          });
+          tbody.appendChild(row);
+        });
+      }
+
+      newTable.appendChild(tbody);
+    }
+  </script>
+</body>
+</html>

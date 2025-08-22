@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ 
+    <title>Online Timer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        h1 {
+            color: #666666;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        #timeDisplay {
+            font-size: 18px;
+            color: #666;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .controls {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        button {
+            padding: 8px 16px;
+            margin: 0 5px;
+            border: 1px solid #ccc;
+            background-color: white;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        
+        button:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .timer-table {
+            max-width: 600px;
+            margin: 0 auto;
+            border-collapse: collapse;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .timer-table th {
+            background-color: #e8e8e8;
+            padding: 10px;
+            border: 1px solid #ccc;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .timer-table td {
+            padding: 8px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+        
+        .time-input {
+            width: 80px;
+            padding: 4px;
+            text-align: center;
+            border: 1px solid #ccc;
+        }
+        
+        .alert-input {
+            width: 150px;
+            padding: 4px;
+            border: 1px solid #ccc;
+        }
+        
+        .remove-btn {
+            padding: 4px 8px;
+            font-size: 12px;
+            background-color: #f8f8f8;
+            border: 1px solid #ccc;
+        }
+        
+        .add-row-container {
+            text-align: center;
+            margin-top: 10px;
+        }
+        
+        .read-only {
+            background-color: #f9f9f9;
+            border: none;
+            padding: 4px;
+        }
+        
+        .current-time {
+            background-color: #ffffcc !important;
+        }
+    </style>
+</head>
+<body>
+    <h1>Online Timer</h1>
+    
+    <div id="timeDisplay">Current Time (1000x faster): 09:00</div>
+    
+    <div class="controls">
+        <button id="editBtn" onclick="toggleEditMode()">Edit</button>
+    </div>
+    
+    <table class="timer-table" id="timerTable">
+        <thead>
+            <tr>
+                <th>Time</th>
+                <th>Alert Word</th>
+                <th id="actionsHeader" style="display: none;">Actions</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+        </tbody>
+    </table>
+    
+    <div class="add-row-container">
+        <button id="addRowBtn" onclick="addRow()" style="display: none;">Add Row</button>
+    </div>
+
+    <script>
+        let AlertTime = [
+            { time: "09:00", alertMessage: "Wake up" },
+            { time: "11:05", alertMessage: "Lunch time" },
+            { time: "15:30", alertMessage: "Take a break" }
+        ];
+        
+        let currentHours = 7;
+        let currentMinutes = 0;
+        let triggeredAlerts = new Set();
+        let isEditMode = false;
+        let timerInterval;
+        
+        function formatTime(hours, minutes) {
+            return String(hours).padStart(2, '0') + ':' + String(minutes).padStart(2, '0');
+        }
+        
+        function parseTime(timeString) {
+            const [hours, minutes] = timeString.split(':').map(num => parseInt(num));
+            return { hours, minutes };
+        }
+        
+        function updateDisplay() {
+            const timeString = formatTime(currentHours, currentMinutes);
+            document.getElementById('timeDisplay').textContent = 
+                `Current Time (1000x faster): ${timeString}`;
+            
+          
+            highlightCurrentTime(timeString);
+            
+            checkForAlerts(timeString);
+        }
+        
+        function highlightCurrentTime(currentTimeString) {
+            const rows = document.querySelectorAll('#tableBody tr');
+            rows.forEach(row => {
+                const timeCell = row.querySelector('td:first-child');
+                if (timeCell) {
+                    const cellTime = isEditMode ? timeCell.querySelector('input').value : timeCell.textContent;
+                    if (cellTime === currentTimeString) {
+                        row.classList.add('current-time');
+                    } else {
+                        row.classList.remove('current-time');
+                    }
+                }
+            });
+        }
+        
+        function checkForAlerts(currentTimeString) {
+            AlertTime.forEach((alertObj, index) => {
+                if (alertObj.time === currentTimeString && !triggeredAlerts.has(index)) {
+                    alert(alertObj.alertMessage);
+                    triggeredAlerts.add(index);
+                }
+            });
+        }
+        
+        function incrementTime() {
+            currentMinutes++;
+            if (currentMinutes >= 60) {
+                currentMinutes = 0;
+                currentHours++;
+                if (currentHours >= 24) {
+                    currentHours = 0;
+                
+                    triggeredAlerts.clear();
+                }
+            }
+            updateDisplay();
+        }
+        
+        function toggleEditMode() {
+            isEditMode = !isEditMode;
+            const editBtn = document.getElementById('editBtn');
+            const addRowBtn = document.getElementById('addRowBtn');
+            const actionsHeader = document.getElementById('actionsHeader');
+            
+            if (isEditMode) {
+                editBtn.textContent = 'Done';
+                addRowBtn.style.display = 'inline-block';
+                actionsHeader.style.display = 'table-cell';
+                renderEditableTable();
+            } else {
+                editBtn.textContent = 'Edit';
+                addRowBtn.style.display = 'none';
+                actionsHeader.style.display = 'none';
+                saveChanges();
+                renderReadOnlyTable();
+            }
+        }
+        
+        function renderReadOnlyTable() {
+            const tbody = document.getElementById('tableBody');
+            tbody.innerHTML = '';
+        
+            const sortedAlerts = [...AlertTime].sort((a, b) => {
+                const timeA = parseTime(a.time);
+                const timeB = parseTime(b.time);
+                return (timeA.hours * 60 + timeA.minutes) - (timeB.hours * 60 + timeB.minutes);
+            });
+            
+            sortedAlerts.forEach((alert) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="read-only">${alert.time}</td>
+                    <td class="read-only">${alert.alertMessage}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+        
+        function renderEditableTable() {
+            const tbody = document.getElementById('tableBody');
+            tbody.innerHTML = '';
+            
+            AlertTime.forEach((alert, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><input type="time" class="time-input" value="${alert.time}" data-index="${index}"></td>
+                    <td><input type="text" class="alert-input" value="${alert.alertMessage}" data-index="${index}"></td>
+                    <td><button class="remove-btn" onclick="removeRow(${index})">Remove</button></td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+        
+        function saveChanges() {
+            const timeInputs = document.querySelectorAll('.time-input');
+            const alertInputs = document.querySelectorAll('.alert-input');
+            
+      
+            const newAlertTime = [];
+            timeInputs.forEach((input, index) => {
+                const alertInput = alertInputs[index];
+                if (input.value && alertInput.value) {
+                    newAlertTime.push({
+                        time: input.value,
+                        alertMessage: alertInput.value
+                    });
+                }
+            });
+            
+            AlertTime = newAlertTime;
+            
+            
+            triggeredAlerts.clear();
+        }
+        
+        function addRow() {
+            AlertTime.push({
+                time: "12:00",
+                alertMessage: "New alert"
+            });
+            renderEditableTable();
+        }
+        
+        function removeRow(index) {
+            AlertTime.splice(index, 1);
+            renderEditableTable();
+        }
+        
+     
+        function init() {
+            renderReadOnlyTable();
+            updateDisplay();
+         
+            timerInterval = setInterval(incrementTime, 60);
+        }
+      
+        init();
+    </script>
+</body>
+</html>

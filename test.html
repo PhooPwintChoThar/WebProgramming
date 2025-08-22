@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Timer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        
+        table {
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        th, td {
+            border: 1px solid black;
+            padding: 8px 12px;
+            text-align: center;
+        }
+        
+        th {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Online Timer</h1>
+    
+    <div id="timeDisplay">Current Time (1000x faster): 09:00</div>
+    
+    <table>
+        <tr>
+            <th>Time</th>
+            <th>Alert Word</th>
+        </tr>
+        <tr>
+            <td>09:00</td>
+            <td>Wake up</td>
+        </tr>
+        <tr>
+            <td>11:05</td>
+            <td>Lunch time</td>
+        </tr>
+        <tr>
+            <td>15:30</td>
+            <td>Take a break</td>
+        </tr>
+    </table>
+
+    <script>
+        // Array of AlertTime objects to store schedule
+        const AlertTime = [
+            { time: "09:00", alertMessage: "Wake up" },
+            { time: "11:05", alertMessage: "Lunch time" },
+            { time: "15:30", alertMessage: "Take a break" }
+        ];
+        
+        let currentHours = 8;
+        let currentMinutes = 59;
+        let triggeredAlerts = new Set();
+        
+        function formatTime(hours, minutes) {
+            return String(hours).padStart(2, '0') + ':' + String(minutes).padStart(2, '0');
+        }
+        
+        function updateDisplay() {
+            const timeString = formatTime(currentHours, currentMinutes);
+            document.getElementById('timeDisplay').textContent = 
+                `Current Time (1000x faster): ${timeString}`;
+            
+           
+            checkForAlerts(timeString);
+        }
+        
+        function checkForAlerts(currentTimeString) {
+            AlertTime.forEach((alertObj, index) => {
+                if (alertObj.time === currentTimeString && !triggeredAlerts.has(alertObj.time)) {
+                    alert(alertObj.alertMessage);
+                    const timeString = formatTime(currentHours, currentMinutes);
+            document.getElementById('timeDisplay').textContent = 
+                `Current Time (1000x faster): ${timeString}`;
+                    triggeredAlerts.add(alertObj.time);
+                    console.log(`Alert triggered at ${currentTimeString}: ${alertObj.alertMessage}`);
+                }
+            });
+        }
+        
+        function incrementTime() {
+            currentMinutes++;
+            if (currentMinutes >= 60) {
+                currentMinutes = 0;
+                currentHours++;
+                if (currentHours >= 24) {
+                    currentHours = 0;
+
+                    triggeredAlerts.clear();
+                    console.log("Day reset - alerts cleared");
+                }
+            }
+            updateDisplay();
+        }
+        
+     
+        updateDisplay();
+        
+      
+        setInterval(incrementTime, 60); 
+    </script>
+</body>
+</html>
