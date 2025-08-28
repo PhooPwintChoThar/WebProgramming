@@ -1,18 +1,42 @@
 table{
-				border-collapse: collapse;
-				border : solid  2px white;}
-			th, td { 
-			width:100px;
-			text-align:center;
-            border-collapse: collapse;
-				border : solid  2px white;
-				}
+        margin:auto;
+        border-collapse: collapse;
+    }
 
-th{
-    background-color: purple;
-    color : white; }
+thead th{
+    border: solid 1px white;
+    text-align: center;
+}
 
-.odd-row{
-        background-color : rgb(234, 231, 231);}
-.even-row {
-        background-color:rgb(191, 219, 191);}
+td{
+    text-align:center;
+    border:none;
+}
+.exchangeheader{
+    color:white;
+    background-color: #800080;
+}
+
+.evenrow{
+    background-color: #D8BFD8;
+}
+
+.tablefont{
+    font-family: Candara;
+}
+
+tbody th:first-child:hover{
+    color: #FF0000;
+    
+}
+
+tbody th:first-child{
+    text-align: left;
+    padding-left:5px;
+}
+
+img{
+    width:20px;
+    height:10px;
+    margin-right:8px;
+}
