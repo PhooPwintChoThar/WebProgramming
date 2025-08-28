@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BMI Calculator</title>
+    <style>
+     body{
+        text-align:center;
+     }
+
+     form{
+        border: solid 1px black;
+        display: inline-block;
+        padding: 5px 10px;
+        margin:10px;
+        text-align:left;
+     }
+
+     input{
+        border:solid 0.8px black;
+        margin:3px;
+     }
+
+     .highlight{
+        background-color: #FFFF00;
+     }
+     .button{
+        margin-left: 50%;
+        text-align:center;
+        padding:2px;
+     }
+
+     table{
+        border-collapse:collapse;
+        margin: auto;
+     }
+     thead{
+        background-color: blue;
+     }
+
+     th, td{
+        text-align:center;
+        padding:3px;
+        border:solid 0.8px black;
+     }
+
+    </style>
+
+    <script>
+         function calculate_bmi(){
+            var user_weight=parseFloat(document.getElementById("weight").value);       
+            var user_height=parseFloat(document.getElementById("height").value);
+            var user_bmi=(user_weight/(user_height)**2).toFixed(1);
+            show_table(user_bmi);
+
+         }
+
+         function show_table(user_bmi){
+            table="<table>";
+            table+="<thead><tr><th>BMI</th><th>Interpretation</th></tr><thead>";
+            table+="<tbody><tr id='below_18.5'><td>Below 18.5</td><td>Underweight</td></tr>";
+            table+="<tr id='18.5'><td>18.5 - 24.9</td><td>Normal</td></tr>";
+            table+="<tr id='25'><td>25.0 - 29.9</td><td>Overweight</td></tr>";
+            table+="<tr id='30'><td>30.0 or greater</td><td>Obese</td></tr></tbody>";
+            table+="</table>";
+            document.getElementById("table_container").innerHTML=table;
+            var result_contanier=document.getElementById("result_container");
+            var user_name=document.getElementById("name").value;
+            if(isNaN(user_name)){
+               user_name="Unknown";
+            }
+            if(isNaN(user_bmi)){
+               user_bmi=0;
+            }
+            var result="BMI of "+user_name+" is "+user_bmi+" and you are ";
+
+            switch(true){
+                case (user_bmi<18.5):
+                    document.getElementById("below_18.5").setAttribute("class", "highlight");
+                    result+="underweight.";
+                    break;
+                case (user_bmi>=18.5 && user_bmi<=24.9):
+                    document.getElementById("18.5").setAttribute("class", "highlight");
+                    result+=" normal.";
+                    break;
+                case (user_bmi>=25 && user_bmi<=29.9):
+                    document.getElementById("25").setAttribute("class", "highlight");
+                    result+="overweight.";
+                    break;
+                case (user_bmi>=30):
+                    document.getElementById("30").setAttribute("class", "highlight");
+                    result+="obese.";
+                    break;
+
+            }
+
+            result_container.innerHTML=result;
+         }
+      </script>
+</head>
+
+<body>
+<form>
+    <h2>BMI Calculator</h2>
+    <label>Name-surname<input type="text" id="name"></label><br>
+    <label for="gender">Gender</label><label><input type="radio" name="gender" value="male">male</label><label><input type="radio" name="gender" value="female">female</label><br>
+    <label>Weight<input type="text" id="weight">kg</label><br>
+    <label>Height<input type="text" id="height">m</label><br>
+    <input type="button" class="button" value="Calculate" onclick="calculate_bmi()">
+</form>
+<div id="table_container"></div>
+<p id="result_container"></p>
+</body>
+</html>
+
+
+

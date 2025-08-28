@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> Number  Increase/Decrease</title>
+    <style>
+    table{
+        border-collapse: collapse;
+        margin:auto;
+    }
+
+    td {
+        text-align:center;
+        padding:2px 5px;
+        border: solid 1px black;
+    }
+
+    img{
+        width:50px;
+        height:50px;
+    }
+
+    </style>
+    <script>
+    
+    function increase_number(){
+        var result=document.getElementById("result");
+        var current_num=parseInt(result.getAttribute("data-name"));
+        if(current_num<9){
+            current_num+=1;
+        }
+        result.setAttribute("src", current_num+".png");
+        result.setAttribute("alt", current_num+"_img");
+        result.setAttribute("data-name", current_num);
+
+    }
+
+    function decrease_number(){
+        var result=document.getElementById("result");
+        var current_num=parseInt(result.getAttribute("data-name"));
+        if(current_num>1){
+            current_num-=1;
+        }
+        result.setAttribute("src", current_num+".png");
+        result.setAttribute("alt", current_num+"_img");
+        result.setAttribute("data-name", current_num);
+
+    }
+</script>
+</head>
+
+<body>
+<table>
+    <tr><td><button type="button" onclick="decrease_number()"><img src="down.png" alt="down_img"></button></td><td rowspan="2"><img src="1.png" alt="1_img" data-name="1" id="result"></td><td><button type="button" onclick="increase_number()"><img src="up.png" alt="up_img"></button></td></tr>
+    <tr><td>down</td><td>up</td></tr>
+</table>
+</body>
+
+</html>
