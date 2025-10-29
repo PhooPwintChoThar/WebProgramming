@@ -1,0 +1,177 @@
+ **Question 1: Student Registration Form (10 points)**
+
+Create a FastAPI application with the following requirements:
+
+**Part A (5 points):** Create an endpoint that displays an HTML form for student registration with these fields:
+- Full Name (text input)
+- Email (email input)
+- Age (number input)
+- Submit button
+
+**Part B (5 points):** Create a POST endpoint that:
+- Receives the form data
+- Validates that age is between 18 and 100
+- Returns an HTML response displaying: "Registration successful for [Name], Email: [Email], Age: [Age]"
+- If validation fails, return: "Invalid age. Must be between 18 and 100"
+
+**Write the complete code including all necessary imports.**
+
+---
+
+## **Question 2: Temperature Converter (10 points)**
+
+Create a FastAPI application for temperature conversion:
+
+**Part A (4 points):** Create a GET endpoint at `/` that displays an HTML form with:
+- A number input for temperature value
+- A dropdown select with options: "Celsius to Fahrenheit" and "Fahrenheit to Celsius"
+- A submit button
+
+**Part B (6 points):** Create a POST endpoint at `/convert` that:
+- Receives the temperature value and conversion type from the form
+- Performs the appropriate conversion:
+  - C to F: (C × 9/5) + 32
+  - F to C: (F - 32) × 5/9
+- Returns an HTML response showing: "Result: [original_value]° [original_unit] = [converted_value]° [new_unit]"
+
+**Write the complete code including all necessary imports.**
+
+---
+
+## **Question 3: Multi-Step Product Order Form (15 points)**
+
+Create a FastAPI application for a product ordering system with multi-step form validation:
+
+**Part A (5 points):** Create a GET endpoint at `/order` that displays an HTML form with:
+- Product dropdown with options: "Laptop ($1200)", "Phone ($800)", "Tablet ($500)"
+- Quantity input (number, min=1, max=10)
+- Customer name (text input)
+- Shipping address (textarea)
+- Priority shipping checkbox (adds $50 if checked)
+- Submit button
+
+**Part B (6 points):** Create a POST endpoint at `/order/confirm` that:
+- Receives all form data
+- Validates:
+  - Name must be at least 3 characters
+  - Quantity must be between 1-10
+  - Address must be at least 10 characters
+- Calculates total price: (product_price × quantity) + priority_shipping_cost
+- If validation passes, displays order summary with:
+  - "Order Confirmation"
+  - Customer name
+  - Product name and quantity
+  - Shipping address
+  - Priority shipping status (Yes/No)
+  - Total price formatted as: "$X,XXX.XX"
+- If validation fails, return specific error messages for each failed field
+
+**Part C (4 points):** Add a GET endpoint at `/order/history` that:
+- Stores the last 5 orders in a Python list (in-memory, no database)
+- Each time an order is confirmed, append it to this list
+- Display all stored orders in an HTML table with columns: Name, Product, Quantity, Total Price
+- If no orders exist, show: "No orders yet"
+
+**Bonus Challenge (+2 points):**
+- Add a discount code input field
+- If code is "SAVE10", apply 10% discount to the total
+- If code is invalid (and not empty), show: "Invalid discount code"
+
+---
+
+## **Question 4: Dynamic Survey Form with Scoring (15 points)**
+
+Create a FastAPI application for a career aptitude survey:
+
+**Part A (4 points):** Create a GET endpoint at `/survey` that displays an HTML form with:
+- 5 questions, each with radio button options (1-5 scale: Strongly Disagree to Strongly Agree):
+  1. "I enjoy working with numbers and data"
+  2. "I prefer creative and artistic tasks"
+  3. "I like helping and teaching others"
+  4. "I enjoy building and fixing things"
+  5. "I'm interested in science and research"
+- Submit button
+
+**Part B (7 points):** Create a POST endpoint at `/survey/results` that:
+- Receives all 5 answers
+- Validates that all questions are answered (return error if any missing)
+- Calculates category scores:
+  - Analytical: Q1 + Q5
+  - Creative: Q2
+  - Social: Q3
+  - Technical: Q4
+- Determines the highest scoring category
+- Returns HTML showing:
+  - "Survey Results for Career Aptitude"
+  - Individual question scores
+  - Category breakdown with scores
+  - Recommended career path based on highest category:
+    - Analytical → "Data Analyst or Scientist"
+    - Creative → "Designer or Artist"
+    - Social → "Teacher or Counselor"
+    - Technical → "Engineer or Technician"
+  - If tied, show all tied recommendations
+
+**Part C (4 points):** Add a GET endpoint at `/survey/stats` that:
+- Keeps track of how many times each career path has been recommended (in-memory counter)
+- Displays statistics in HTML:
+  - Total surveys completed
+  - Number of recommendations for each career path
+  - Most popular career path
+- Display as a formatted list or simple chart representation
+
+
+---
+Question 5: DOM Manipulation and Event Handling (15 points)
+Given the following HTML structure:
+html<div id="taskContainer">
+  <input type="text" id="taskInput" placeholder="Enter a task">
+  <button id="addBtn">Add Task</button>
+  <ul id="taskList"></ul>
+</div>
+Write JavaScript code that accomplishes the following:
+a) (5 points) When the "Add Task" button is clicked, create a new list item (<li>) containing the text from the input field and append it to the taskList. Clear the input field after adding.
+b) (5 points) Add a "Delete" button to each newly created list item. When clicked, this button should remove its parent list item from the DOM.
+c) (5 points) Implement event delegation on the taskList so that clicking any list item (but not the delete button) toggles a CSS class called "completed" on that item.
+---
+Question 6: Event Object and Form Validation (10 points)
+Consider this HTML form:
+<form id="registrationForm">
+  <input type="text" id="username" name="username">
+  <input type="email" id="email" name="email">
+  <input type="password" id="password" name="password">
+  <button type="submit">Register</button>
+  <div id="errorMsg"></div>
+</form>
+Write JavaScript code that:
+a) (4 points) Prevents the form from submitting using the event object. Explain which method you use and why.
+b) (6 points) Validates that the username is at least 5 characters long and the password is at least 8 characters long. If validation fails, display an appropriate error message in the errorMsg div and do not submit the form. If validation passes, display "Form submitted successfully!" in the console.
+---
+Question 7: Advanced Event Handling and Dynamic Content (20 points)
+Given the following HTML:
+html<div id="productContainer">
+  <button id="loadProducts">Load Products</button>
+  <div id="products"></div>
+  <div id="cart">
+    <h3>Shopping Cart</h3>
+    <ul id="cartItems"></ul>
+    <p>Total: $<span id="totalPrice">0</span></p>
+  </div>
+</div>
+Write JavaScript code that:
+a) (6 points) When "Load Products" is clicked, dynamically create 5 product cards. Each card should have:
+
+Product name (e.g., "Product 1", "Product 2", etc.)
+Price (use prices: $10, $20, $15, $25, $30)
+An "Add to Cart" button with a custom data attribute data-price containing the price
+A quantity input field (type="number", min="1", default value="1")
+
+b) (8 points) Using event delegation on #products, when any "Add to Cart" button is clicked:
+
+Get the product name, price, and quantity
+Create a cart item showing: "Product Name x Quantity - $TotalForItem"
+Add it to #cartItems
+Update the total price in #totalPrice
+Important: If the same product is added again, update the existing cart item's quantity instead of creating a duplicate
+
+c) (6 points) Implement a feature where clicking on any cart item removes it from the cart and updates the total price accordingly. Use event delegation on #cartItems.
