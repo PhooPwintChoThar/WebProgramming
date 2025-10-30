@@ -1,4 +1,8 @@
- **Question 1: Student Registration Form (10 points)**
+I'll create 2 FastAPI exam questions focused on simple forms without databases.
+
+---
+
+## **Question 1: Student Registration Form (10 points)**
 
 Create a FastAPI application with the following requirements:
 
@@ -50,7 +54,7 @@ Create a FastAPI application for a product ordering system with multi-step form 
 - Priority shipping checkbox (adds $50 if checked)
 - Submit button
 
-**Part B (6 points):** Create a POST endpoint at `/order/confirm` that:
+**Part B (6 points):** ge a POST endpoint at `/order/confirm` that:
 - Receives all form data
 - Validates:
   - Name must be at least 3 characters
@@ -133,7 +137,7 @@ Write JavaScript code that accomplishes the following:
 a) (5 points) When the "Add Task" button is clicked, create a new list item (<li>) containing the text from the input field and append it to the taskList. Clear the input field after adding.
 b) (5 points) Add a "Delete" button to each newly created list item. When clicked, this button should remove its parent list item from the DOM.
 c) (5 points) Implement event delegation on the taskList so that clicking any list item (but not the delete button) toggles a CSS class called "completed" on that item.
----
+
 Question 6: Event Object and Form Validation (10 points)
 Consider this HTML form:
 <form id="registrationForm">
@@ -146,7 +150,7 @@ Consider this HTML form:
 Write JavaScript code that:
 a) (4 points) Prevents the form from submitting using the event object. Explain which method you use and why.
 b) (6 points) Validates that the username is at least 5 characters long and the password is at least 8 characters long. If validation fails, display an appropriate error message in the errorMsg div and do not submit the form. If validation passes, display "Form submitted successfully!" in the console.
----
+
 Question 7: Advanced Event Handling and Dynamic Content (20 points)
 Given the following HTML:
 html<div id="productContainer">
@@ -175,3 +179,131 @@ Update the total price in #totalPrice
 Important: If the same product is added again, update the existing cart item's quantity instead of creating a duplicate
 
 c) (6 points) Implement a feature where clicking on any cart item removes it from the cart and updates the total price accordingly. Use event delegation on #cartItems.
+--
+Question 8: Mouse Events - Interactive Tooltip System (15 points)
+Given the following HTML:
+html<div id="container">
+  <p>Hover over the <span class="tooltip-trigger" data-tooltip="Hypertext Markup Language">HTML</span> 
+  and <span class="tooltip-trigger" data-tooltip="Cascading Style Sheets">CSS</span> 
+  terms to see their definitions.</p>
+  
+  <div id="customTooltip" style="display:none; position:absolute; background:black; color:white; padding:5px; border-radius:5px;">
+  </div>
+</div>
+
+<div id="drawingArea" style="width:500px; height:300px; border:2px solid black; position:relative;">
+  <p>Move your mouse here to draw!</p>
+</div>
+Write JavaScript code that:
+a) (6 points) Implement a custom tooltip system using mouseover and mouseout events:
+
+When hovering over any element with class tooltip-trigger, show the #customTooltip div
+Display the text from the data-tooltip attribute inside the tooltip
+When mouse leaves the trigger element, hide the tooltip
+Use event delegation on the #container
+
+b) (5 points) Implement a drawing feature using mousemove event on #drawingArea:
+
+Create small colored circles (divs) that follow the mouse position only when the mouse button is held down
+Use mousedown to start drawing and mouseup to stop drawing
+Each circle should be 5px in size with a random background color
+
+c) (4 points) Add a feature where double-clicking (dblclick event) on the #drawingArea clears all drawn circles. Explain why you might need to prevent the default behavior of double-click.
+--
+
+Question 9: Focus, Blur, and Form Events (15 points)
+Given this HTML:
+html<form id="loginForm">
+  <div>
+    <label>Email:</label>
+    <input type="email" id="email" placeholder="Enter email">
+    <span id="emailHelper" style="display:none; color:blue; font-size:12px;">
+      Format: example@domain.com
+    </span>
+  </div>
+  
+  <div>
+    <label>Password:</label>
+    <input type="password" id="password">
+    <span id="passwordHelper" style="display:none; color:blue; font-size:12px;">
+      Must be at least 8 characters
+    </span>
+  </div>
+  
+  <div>
+    <input type="text" id="captcha" placeholder="Enter captcha" readonly>
+    <button type="button" id="generateCaptcha">Generate Captcha</button>
+    <input type="text" id="captchaInput" placeholder="Type captcha here">
+  </div>
+  
+  <button type="submit">Login</button>
+  <div id="message"></div>
+</form>
+Write JavaScript code that:
+a) (5 points) Implement helper text functionality using focus and blur events:
+
+When the email input receives focus, show #emailHelper
+When it loses focus (blur), hide the helper text
+Do the same for the password field with #passwordHelper
+On blur of email field, validate if it contains "@" symbol. If not, display "Invalid email format" in red below the input
+
+b) (5 points) Implement captcha validation:
+
+When "Generate Captcha" button is clicked, generate a random 6-character string (mix of letters and numbers) and display it in the readonly #captcha input
+When #captchaInput loses focus (blur), check if the entered text matches the captcha
+If it doesn't match, display "Captcha doesn't match!" and automatically focus back on the #captchaInput field
+Use the .focus() method programmatically
+
+c) (5 points) On form submission:
+
+Prevent default submission
+Check if both email contains "@" and password length ≥ 8 and captcha matches
+If any validation fails, display all error messages in #message div and focus on the first invalid field
+If all validations pass, display "Login successful!" in green
+
+--
+
+Question 10: Event Bubbling, Propagation, and Multiple Event Handlers (20 points)
+Given this HTML:
+html<div id="grandparent" style="padding:40px; background:lightcoral;">
+  Grandparent
+  <div id="parent" style="padding:40px; background:lightblue;">
+    Parent
+    <button id="child">Child Button</button>
+  </div>
+</div>
+
+<div id="log"></div>
+
+<hr>
+
+<div id="menu">
+  <button class="menu-item" data-action="save">Save</button>
+  <button class="menu-item" data-action="delete">Delete</button>
+  <button class="menu-item" data-action="cancel">Cancel</button>
+</div>
+<div id="output"></div>
+Write JavaScript code that:
+a) (7 points) Demonstrate event bubbling:
+
+Add click event listeners to #grandparent, #parent, and #child
+Each listener should append its element's ID to the #log div when clicked
+When you click the child button, explain in comments what order the logs appear and why
+Modify the code so that clicking the child button logs only "child" by stopping event propagation
+Explain the difference between event.stopPropagation() and event.stopImmediatePropagation() in comments
+
+b) (7 points) Implement event delegation with multiple handlers:
+
+Add TWO separate click event listeners on #menu using event delegation
+First listener: If clicked element has class menu-item, log the action to console (e.g., "Action: save")
+Second listener: If clicked element has class menu-item, display "Are you sure you want to [action]?" in #output
+Add a third click listener to the "Delete" button specifically that uses stopImmediatePropagation() to prevent the second menu listener from executing
+Explain in comments when you would use stopImmediatePropagation() vs stopPropagation()
+
+c) (6 points) Event capturing phase:
+
+Add a fourth event listener to #grandparent that uses the capture phase (third parameter = true)
+This listener should log "Capturing phase: grandparent" to #log
+Add another capturing listener to #parent that logs "Capturing phase: parent"
+When you click the child button, explain in comments the complete order of event execution (capture phase → target phase → bubble phase)
+Demonstrate how stopPropagation() called during the capture phase prevents the event from reaching the target element
