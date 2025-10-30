@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Multi-Step Product Order Form</title>
+    </head>
+
+    <body>
+        <form action="/order/confirm" method="POST">
+            <label for="dropdown">Product  <select id="dropdown" name="product_price">
+                <option value="laptop-1200" selected>Laptop ($1200)</option>
+                <option value="phone-800" >Phone ($800) </option>
+                <option value="tablet-500" >Tablet ($500)</option>
+            </select></label><br>
+            <label for="name">Name : <input type="text" id="name" name="name"></label><br>
+            <label for="quantity">Quantity  <input type="number" min=1 max=10 id="quantity" name="quantity"></label><br>
+            <label for="address">Shipping Address  <input type="textarea" id="address" name="address"></label><br>
+            <label for="priority">priority shipping(+$50) <input type="checkbox" id="priority" name="priority" value="priority"></label><br>
+            <input type="submit" value="Submit">
+        </form>
+        <script src="{{url_for("static", path="script.js")}}">
+    </body>
+
+</html>
