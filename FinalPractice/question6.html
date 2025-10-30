@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Task Manager</title>
+        <style>
+        </style>
+    </head>
+    <body>
+        <form id="registrationForm">
+            <input type="text" id="username" name="username">
+            <input type="email" id="email" name="email">
+            <input type="password" id="password" name="password">
+            <button type="submit">Register</button>
+            <div id="errorMsg"></div>
+        </form>
+        <script>
+            document.getElementById("registrationForm").addEventListener("submit", (event)=>{
+                event.preventDefault();
+                const username=document.getElementById("username").value.trim();
+                if(username.length<5){
+                    document.getElementById("errorMsg").innerText="Username should be at least 5 characters long."
+                    return;
+                }
+
+                const password=document.getElementById("password").value;
+                if(password.length<8){
+                    document.getElementById("errorMsg").innerText="Password should be at least 8 characters long."
+                    return;
+                }
+
+                document.getElementById("errorMsg").innerText="";
+                console.log("Form submitted successfully!");
+            })
+        </script>
+    </body>
+</html>

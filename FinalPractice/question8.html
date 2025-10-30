@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Interactive Image Gallery with Mouse Events</title>
+        <style>
+            .thumbnail{
+                width: 200px;
+                height: 200px;
+                margin: auto;
+            }
+
+            #gallery{
+                display: flex;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="gallery">
+        <img src="img1.jpg" alt="Mountain" class="thumbnail">
+        <img src="img2.jpg" alt="Beach" class="thumbnail">
+        <img src="img3.jpg" alt="Forest" class="thumbnail">
+        <img src="img4.jpg" alt="Desert" class="thumbnail">
+        </div>
+
+        <div id="preview" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%);">
+        <img id="previewImage" src="" alt="">
+        <p id="imageCaption"></p>
+        </div>
+
+        <div id="coordinates" style="position:fixed; top:10px; right:10px;">
+        Mouse Position: X: <span id="xPos">0</span>, Y: <span id="yPos">0</span>
+        </div>
+        <script>
+            const gallery=document.getElementById("gallery");
+            const preview=document.getElementById("preview")
+            const previewimg=document.getElementById("previewImage")
+            gallery.addEventListener("mouseover", e=>{
+                if(e.target.classList.contains("thumbnail")){
+                    e.target.style.opacity=0.7
+                }
+
+            })
+            gallery.addEventListener("mouseout", e=>{
+                if(e.target.classList.contains("thumbnail")){
+                    e.target.style.opacity=1
+                }
+
+            })
+
+            gallery.addEventListener("click", e=>{
+                if(e.target.classList.contains("thumbnail")){
+                    preview.style.display="flex";
+                    previewimg.setAttribute("src", e.target.getAttribute("src"))
+                    document.getElementById("imageCaption").innerText=e.target.getAttribute("alt")
+                }
+            })
+
+            preview.addEventListener("click", ()=>{
+                preview.style.display="none";
+            })
+
+            document.addEventListener("mousemove", e=>{
+                if(e.shiftKey)
+                {document.getElementById("xPos").innerText=e.clientX
+                document.getElementById("yPos").innerText=e.clientY}
+            })
+        </script>
+    </body>
+</html>

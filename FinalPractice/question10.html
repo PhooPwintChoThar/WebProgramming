@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Interactive Task Board with Event Bubbling</title>
+        <style>
+            .left{
+                background-color: aqua;
+            }
+            .right{
+                background-color: blanchedalmond;
+            }
+            .delete{
+                background-color: cornsilk;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="taskBoard">
+        <div id="todoColumn" class="column" data-status="todo">
+            <h3>To Do</h3>
+            <div class="task-list"></div>
+        </div>
+        
+        <div id="inProgressColumn" class="column" data-status="inprogress">
+            <h3>In Progress</h3>
+            <div class="task-list"></div>
+        </div>
+        
+        <div id="doneColumn" class="column" data-status="done">
+            <h3>Done</h3>
+            <div class="task-list"></div>
+        </div>
+        </div>
+
+        <div id="taskForm">
+        <input type="text" id="taskInput" placeholder="Enter new task">
+        <button id="addTask">Add Task</button>
+        </div>
+
+        <div id="eventLog">
+        <h4>Event Log:</h4>
+        <div id="logContent"></div>
+        </div>
+        <script>
+            let addtask=document.getElementById("addTask");
+            const todoColList=document.querySelector("#todoColumn .task-list")
+            const inprogColList=document.querySelector("#inProgressColumn .task-list")
+            const doneColList=document.querySelector("#doneColumn .task-list")
+            addtask.addEventListener("click", ()=>{
+                const list=document.querySelector("#todoColumn .task-list")
+                const task=document.createElement("div")
+                let t=document.getElementById("taskInput").value.trim();
+                task.innerText=t;
+                document.getElementById("taskInput").value=""
+                task.classList.add("todo")
+                task.setAttribute("data-task", t)
+                const right=document.createElement("button")
+                right.innerText="Move Right"
+                right.classList.add("right")
+
+                const left=document.createElement("button")
+                left.innerText="Move Left"
+                left.classList.add("left")
+
+
+                const del=document.createElement("button")
+                del.innerText="Delete"
+                del.classList.add("delete")
+
+                task.appendChild(right)
+                task.appendChild(left)
+                task.appendChild(del)
+
+                list.appendChild(task)
+
+            })
+
+            let board=document.getElementById("taskBoard")
+            board.addEventListener("click", e=>{
+                if(e.target.classList.contains("right")){
+                    moveRight(e.target.closest("div"));
+                }else if(e.target.classList.contains("left")){
+                    moveLeft(e.target.closest("div"));
+                }
+            })
+
+            function moveRight(node){
+                console.log(node.innerText)
+                if(node.classList.contains("todo")){
+                    inprogColList.appendChild(node);
+                    node.classList.add("inprog")
+                    node.classList.remove("todo")
+                    node.querySelector(".right").disabled=false;
+                    node.querySelector(".left").disabled=false;
+                    document.getElementById("logContent").innerText +="\nTask "+node.dataset.task+"moved from todo Column to In prgoress Column"
+                }else if(node.classList.contains("inprog")){
+                    doneColList.appendChild(node);
+                    node.classList.add("done")
+                    node.classList.remove("inprog")
+                    node.querySelector(".right").disabled=true;
+                    document.getElementById("logContent").innerText +="\nTask "+node.dataset.task+"moved from In prgoress Column to Done Column "
+                }     
+            }
+
+            function moveLeft(node){
+                if(node.classList.contains("done")){
+                    inprogColList.appendChild(node);
+                    node.classList.add("inprog")
+                    node.classList.remove("done")
+                    node.querySelector(".right").disabled=false;
+                    node.querySelector(".left").disabled=false;
+                    document.getElementById("logContent").innerText +="\nTask "+node.dataset.task+" moved from Done Column to In prgoress Column"
+                }else if(node.classList.contains("inprog")){
+                    todoColList.appendChild(node);
+                    node.classList.add("todo")
+                    node.classList.remove("inprog")
+                    node.querySelector(".left").disabled=true;
+                    document.getElementById("logContent").innerText +="\nTask "+node.dataset.task+" moved from Inprogress Column to todo Column"
+                }     
+                
+            }
+
+
+
+            const divs=document.querySelectorAll("#taskBoard, .column,.task-list");
+            divs.forEach(n=>{
+                n.addEventListener("click",e=>{
+                    document.getElementById("logContent").innerText += "\nclicked  "+e.target.nodeName;
+                    if(e.target.classList.contains("delete")){
+                        e.stopPropagation();
+                        e.target.closest("div").remove();
+                    }
+                })
+            })
+
+            document.getElementById("taskBoard").addEventListener("dblclick",()=>{
+                document.getElementById("logContent").innerText=""
+            })
+
+
+
+        </script>
+    </body>
+</html>

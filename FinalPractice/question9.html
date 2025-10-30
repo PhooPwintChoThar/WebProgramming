@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Registration Form</title>
+</head>
+<body>
+<form id="registrationForm">
+<div>
+<label for="fullName">Full Name:</label>
+<input type="text" id="fullName" name="fullName">
+<span id="nameHint" class="hint"></span>
+</div>
+<div>
+<label for="email">Email:</label>
+<input type="email" id="email" name="email">
+<span id="emailHint" class="hint"></span>
+<span id="emailStatus"></span>
+</div>
+<div>
+<label for="phone">Phone Number:</label>
+<input type="text" id="phone" name="phone" maxlength="10">
+<span id="phoneHint" class="hint"></span>
+</div>
+<div>
+<label for="country">Country:</label>
+<select id="country" name="country">
+<option value="">Select Country</option>
+<option value="us">United States</option>
+<option value="uk">United Kingdom</option>
+<option value="in">India</option>
+</select>
+</div>
+<button type="submit">Register</button>
+<div id="errorDisplay"></div>
+</form>
+
+<script>
+// Part A: Contextual help hints
+document.getElementById("fullName").addEventListener("focus", () => {
+    document.getElementById("nameHint").innerText = "Enter your first and last name";
+    document.getElementById("nameHint").style.color = "blue";
+});
+
+document.getElementById("email").addEventListener("focus", () => {
+    document.getElementById("emailHint").innerText = "We'll never share your email";
+    document.getElementById("emailHint").style.color = "blue";
+});
+
+document.getElementById("phone").addEventListener("focus", () => {
+    document.getElementById("phoneHint").innerText = "Enter 10 digit number without spaces";
+    document.getElementById("phoneHint").style.color = "blue";
+});
+
+// Clear hints on blur
+document.getElementById("fullName").addEventListener("blur", () => {
+    document.getElementById("nameHint").innerText = "";
+});
+
+document.getElementById("email").addEventListener("blur", () => {
+    document.getElementById("emailHint").innerText = "";
+});
+
+document.getElementById("phone").addEventListener("blur", () => {
+    document.getElementById("phoneHint").innerText = "";
+});
+
+// Part B: Real-time validation on blur
+document.getElementById("fullName").addEventListener("blur", (e) => {
+    const value = e.target.value.trim();
+    if (!value.includes(" ")) {
+        document.getElementById("nameHint").innerText = "Please enter full name";
+        document.getElementById("nameHint").style.color = "red";
+        e.target.focus();
+    }
+});
+
+document.getElementById("email").addEventListener("blur", (e) => {
+    const value = e.target.value.trim();
+    const emailStatus = document.getElementById("emailStatus");
+    if (value.includes("@") && value.includes(".")) {
+        emailStatus.innerText = "✓ Valid";
+        emailStatus.style.color = "green";
+    } else {
+        emailStatus.innerText = "✗ Invalid email";
+        emailStatus.style.color = "red";
+    }
+});
+
+document.getElementById("phone").addEventListener("blur", (e) => {
+    const value = e.target.value.trim();
+    // Check if exactly 10 digits (all characters are numbers)
+    if (value.length !== 10 || !/^\d+$/.test(value)) {
+        e.target.value = "";
+        e.target.focus();
+    }
+});
+
+// Part C: Form submission validation
+document.getElementById("registrationForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    
+    const fullName = document.getElementById("fullName").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const country = document.getElementById("country").value;
+    const errorDisplay = document.getElementById("errorDisplay");
+    
+    // Check all fields are filled
+    if (!fullName) {
+        errorDisplay.innerText = "All fields are required!";
+        document.getElementById("fullName").focus();
+        return;
+    }
+    if (!email) {
+        errorDisplay.innerText = "All fields are required!";
+        document.getElementById("email").focus();
+        return;
+    }
+    if (!phone) {
+        errorDisplay.innerText = "All fields are required!";
+        document.getElementById("phone").focus();
+        return;
+    }
+    if (!country) {
+        errorDisplay.innerText = "All fields are required!";
+        document.getElementById("country").focus();
+        return;
+    }
+    
+    // All validations passed
+    errorDisplay.innerText = "Registration Successful!";
+    errorDisplay.style.color = "green";
+    document.querySelector("button[type='submit']").disabled = true;
+});
+
+// Why use both blur and submit validation?
+// Blur validation: Provides immediate feedback as user fills the form (better UX)
+// Submit validation: Final check to ensure all fields are valid before submission
+// This double-layer approach catches errors early and ensures data integrity
+</script>
+</body>
+</html>

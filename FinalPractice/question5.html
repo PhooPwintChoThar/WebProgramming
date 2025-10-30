@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Task Manager</title>
+        <style>
+            .completed{
+                background-color: skyblue;
+                color: black;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="taskContainer">
+        <input type="text" id="taskInput" placeholder="Enter a task">
+        <button id="addBtn">Add Task</button>
+        <ul id="taskList"></ul>
+        </div>
+        <script>
+            const list_items=document.getElementById("taskList");
+            const add_btn=document.getElementById("addBtn");
+            add_btn.addEventListener("click", ()=>{
+                const task=document.getElementById("taskInput");
+                if(task.value.trim()=="") return;
+                const item=document.createElement("li");
+                item.innerText=task.value;
+
+                const b= document.createElement("button");
+                b.setAttribute("class", "delete-btn");
+                b.innerHTML="delete";
+                b.style.backgroundColor="green";
+                b.style.color="white";
+
+                item.appendChild(b);
+                list_items.appendChild(item);
+                task.value="";
+
+            })
+
+            list_items.addEventListener('click', event=>{
+                if(event.target.classList.contains("delete-btn")){
+                    event.target.parentElement.remove();//we can also use event.taget.closest("li").remove();
+                    console.log("work");
+
+                }else if(event.target.nodeName.toLowerCase()=="li"){
+                    event.target.classList.toggle("completed");
+                    /*if(event.target.classList.contains("completed")){
+                        event.target.classList.remove("completed");
+                    }else{
+                        event.target.classList.add("completed");
+                    } */
+                }
+            })
+
+        </script>
+    </body>
+</html>

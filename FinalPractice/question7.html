@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Shopping Cards</title>
+        <style>
+        </style>
+    </head>
+    <body>
+        <div id="productContainer">
+        <button id="loadProducts">Load Products</button>
+        <div id="products"></div>
+        <div id="cart">
+            <h3>Shopping Website</h3>
+            <ul id="cartItems"></ul>
+            <p>Total: $<span id="totalPrice">0</span></p>
+        </div>
+        </div>       
+        <script>
+            const container=document.getElementById("products");
+            let cart_list={}
+            let cart=document.getElementById("cartItems");
+            document.getElementById("loadProducts").addEventListener("click", ()=>{
+                const Products=["Product1", "Product2", "Product3", "Product4", "Product5"];
+                const prices=[10,20,15,25,30];
+                for(var i=0; i<5; i++){
+                    const card=document.createElement("div");
+                    card.setAttribute("class", "card");
+                    card.setAttribute("style", "border: 2px solid blue;")
+                    const name=document.createElement("h3");
+                    name.innerText=Products[i];
+                    const price=document.createElement("h4");
+                    price.innerText="Price : $"+prices[i];
+                    const addcard=document.createElement("button");
+                    addcard.innerText="Add to cart";
+                    addcard.setAttribute("data-price",prices[i]);
+                    const quantity=document.createElement("input");
+                    quantity.setAttribute("type", "number");
+                    quantity.setAttribute("min",1);
+                    quantity.setAttribute("value",1);
+
+                    card.appendChild(name);
+                    card.appendChild(price);
+                    card.appendChild(addcard);
+                    card.appendChild(quantity);
+                    container.appendChild(card);
+                }
+                
+            })
+
+            container.addEventListener("click", (event)=>{
+                if(event.target.nodeName.toLowerCase()=="button"){
+                    const currCard=event.target.closest("div");
+                    const name=currCard.querySelector("h3").innerText;
+                    const quantity=parseInt(currCard.querySelector("input").value);
+                    const price=event.target.dataset.price;
+                    let total=quantity*price;
+                    
+                    if(name in cart_list){
+                        cart_list[name]+=parseInt(quantity);
+                        cart.querySelector("#"+name).innerText=name +" x "+cart_list[name]+" - $"+cart_list[name]*price;
+                    }else{
+                        const item=document.createElement("li");
+                        item.innerText=name +" x "+quantity+" - $"+total;
+                        item.setAttribute("id", name);
+                        cart.appendChild(item);
+                        cart_list[name]=quantity;
+                    }
+
+                    const t_price=document.getElementById("totalPrice");
+                    let p=parseInt(t_price.innerText);
+                    t_price.innerText=p+total;
+                    
+                }else if(event.target.classList.contains("card")){
+
+                    let name=event.target.querySelector("h3").innerText;
+                    let p=event.target.querySelector("button").dataset.price;
+                    let quantity=cart_list[name];
+                    document.getElementById("totalPrice")-=price*quantity;
+                    event.target.remove();
+
+                }
+            })
+        </script>
+    </body>
+</html>
