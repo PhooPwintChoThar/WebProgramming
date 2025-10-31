@@ -14,7 +14,7 @@ def show_form(request:Request):
 
 
 @app.post("/student/reg", response_class=HTMLResponse)
-def submit_form(request: Request,  age:int=Form(...),  name:str=Form(...), email:str=Form(...)):
+def submit_form(age:int=Form(...),  name:str=Form(...), email:str=Form(...)):
 	style= f"<!DOCTYPE html><html><head><title>Student Registration</title></head><body><h1> "
 	if age>=18 and age<=100:
 		style+=f"Registration Successful for {name}, Email: {email}, Age : {age} </h1></body></html>"
