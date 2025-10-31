@@ -10,7 +10,7 @@ def show_form(request:Request):
 
 
 @app.post("/convert")
-def convert_temp(request:Request, temp:int=Form(..., ge=20),c_type:str=Form(...)):
+def convert_temp(temp:int=Form(..., ge=20),c_type:str=Form(...)):
     result="<!DOCTYPE html><html><head><title>Temperature conversion</title></head><body><h1>"
     if c_type=="C2F":
         converted=temp*9/5+32
