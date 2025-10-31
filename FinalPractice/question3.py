@@ -13,7 +13,7 @@ def display_form(request:Request):
     return templates.TemplateResponse("form3.html", {"request":request})
 
 @app.post("/order/confirm", response_class=HTMLResponse)
-def proceed_confirm(request:Request, product_price:str=Form(...), name:str=Form(..., min_length=3), quantity:int=Form(..., ge=1, le=10), address:str=Form(..., min_length=10), priority:str=Form(None)):
+def proceed_confirm(product_price:str=Form(...), name:str=Form(..., min_length=3), quantity:int=Form(..., ge=1, le=10), address:str=Form(..., min_length=10), priority:str=Form(None)):
     result="<!DOCTYPE html><html><head><title>Order Confirmation</title></head><body><h2>Order Confirmation</h2>"
     result+="<p>Customer Name - "+name+"</p>"
     pandp=product_price.split('-')
@@ -49,9 +49,9 @@ def proceed_confirm(request:Request, product_price:str=Form(...), name:str=Form(
     
     return HTMLResponse(content=result)
 
-@app.get("/order/history")
-def display_orders(request:Request, response_class=HTMLResponse):
-    result="<!DOCTYPE html><html><head><title>History</title></head><body>"
+@app.get("/order/history" , response_class=HTMLResponse)
+def display_orders():
+    result=f"<!DOCTYPE html><html><head><title>History</title></head><body><h1>{request}</h1>"
     if len(orders) ==0:
         result+="<p>No orders yet</p>"
     else:
