@@ -17,7 +17,7 @@ def show_form(request:Request):
     return templates.TemplateResponse("form4.html", {"request":request})
 
 @app.post("/survery/results", response_class=HTMLResponse)
-def show_results(request:Request, q1:int=Form(...), q2:int=Form(...),q3:int=Form(...),q4:int=Form(...),q5:int=Form(...)):
+def show_results(q1:int=Form(...), q2:int=Form(...),q3:int=Form(...),q4:int=Form(...),q5:int=Form(...)):
     global survery_counts
     survery_counts+=1
     result="<!DOCTYPE html><html><head><title>Result</title></head><body>"
@@ -43,7 +43,7 @@ def show_results(request:Request, q1:int=Form(...), q2:int=Form(...),q3:int=Form
     return HTMLResponse(content=result)
 
 @app.get("/survery/stats", response_class=HTMLResponse)
-def get_statistics(request:Request):
+def get_statistics():
     result="<!DOCTYPE html><html><head><title>Statistics</title></head><body>"
     result+=f"<h3>Total surveys completed - {survery_counts}</h3>"
     result+="<h3>Number of recommendations for each career path</h3>"
